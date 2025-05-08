@@ -23,14 +23,14 @@ export class UserService {
     return this.usersRepository.findOne(UserUniqueInput, select);
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto) {
     return this.usersRepository.update({
       where: { id },
       data: updateUserDto,
     });
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     return this.usersRepository.delete({
       where: { id },
     });

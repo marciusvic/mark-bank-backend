@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
-import { Role, User } from '@prisma/client';
+import { User } from '@prisma/client';
 import { UserService } from 'src/user/user.service';
 
 @Injectable()
@@ -19,7 +19,6 @@ export class AuthService {
         email: true,
         name: true,
         id: true,
-        role: true,
       },
     );
 
@@ -60,7 +59,6 @@ export class AuthService {
       email: data.email,
       password: hashedPassword,
       name: data.name || 'sem nome',
-      role: Role.USER,
     });
     const { password: _, ...result } = createdUser;
     return result;
