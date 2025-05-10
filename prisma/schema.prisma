@@ -12,22 +12,32 @@ model User {
   name                 String
   email                String        @unique
   password             String
+  role                 Role          @default(USER)
   balance              Float         @default(0)
   createdAt            DateTime      @default(now())
   transactionsSent     Transaction[] @relation("Sender")
   transactionsReceived Transaction[] @relation("Receiver")
+  Transaction          Transaction[]
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 model Transaction {
   id         String          @id @default(uuid())
   type       TransactionType
   amount     Float
+  userId     String
+  user       User            @relation(fields: [userId], references: [id])
   senderId   String?
   sender     User?           @relation("Sender", fields: [senderId], references: [id])
-  receiverId String?
-  receiver   User?           @relation("Receiver", fields: [receiverId], references: [id])
+  receiverId String
+  receiver   User            @relation("Receiver", fields: [receiverId], references: [id])
   reversed   Boolean         @default(false)
   createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
 }
 
 enum TransactionType {
