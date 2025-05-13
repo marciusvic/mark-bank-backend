@@ -14,6 +14,13 @@ export class UserRepository {
     const { where } = params;
     return this.prisma.user.findMany({
       where,
+      select:{
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        password: false,
+      }
     });
   }
 
