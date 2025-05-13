@@ -45,6 +45,7 @@ export class TransactionService {
   async findAll(where = {}) {
     return this.transactionRepository.findMany({ where });
   }
+
   async findOne(id: string, userId: string) {
     const transaction = await this.transactionRepository.findOne(id);
     if (!transaction) {
@@ -55,6 +56,7 @@ export class TransactionService {
     }
     return transaction;
   }
+  
   async reverseTransaction(id: string) {
     const currentTransaction = await this.transactionRepository.findOne(id);
     if (!currentTransaction) {
