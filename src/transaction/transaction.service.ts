@@ -48,10 +48,10 @@ export class TransactionService {
   async findOne(id: string, userId: string) {
     const transaction = await this.transactionRepository.findOne(id);
     if (!transaction) {
-      throw new Error('Task not found');
+      throw new Error('Transação não encontrada');
     }
     if (transaction.userId !== userId) {
-      throw new Error('You do not have permission to access this task');
+      throw new Error('Transação não pertence ao usuário');
     }
     return transaction;
   }
