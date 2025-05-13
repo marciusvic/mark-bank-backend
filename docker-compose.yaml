@@ -27,7 +27,7 @@ services:
       - "3000:3000"
     environment:
       DATABASE_URL: "postgresql://postgres:postgres@db:5432/bankdb"
-      JWT_SECRET: "mark-bank"
+      JWT_SECRET: "markbank"
       JWT_EXPIRES_IN: "8h"
     depends_on:
       db:

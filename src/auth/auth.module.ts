@@ -14,7 +14,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
   imports: [
     PassportModule,
     JwtModule.register({
-      secret: 'olhar180',
+      secret: 'markbank',
       signOptions: { expiresIn: process.env.JWT_EXPIRES_IN },
     }),
     UserModule,

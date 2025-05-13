@@ -12,25 +12,27 @@ export class TransactionService {
   ) {}
 
   async create(createTransactionDto: CreateTransactionDto) {
-    const { senderId, receiverId } = createTransactionDto;
-    const sender = await this.userRepository.findOne({ id: senderId });
+    const { senderId, receiverId, type } = createTransactionDto;
+
+    if (type === TransactionType.TRANSFER) {
+      const sender = await this.userRepository.findOne({ id: senderId });
+      if (!sender) {
+        throw new Error('Remetente não encontrado');
+      }
+      if (senderId === receiverId) {
+        throw new Error('Remetente e destinatário não podem ser iguais');
+      }
+      if (sender.balance < createTransactionDto.amount) {
+        throw new Error('Saldo insuficiente');
+      }
+    }
+
     const receiver = await this.userRepository.findOne({ id: receiverId });
-    if (senderId === receiverId) {
-      throw new Error('Remetente e destinatário não podem ser iguais');
-    }
-    if (!sender) {
-      throw new Error('Remetente não encontrado');
-    }
     if (!receiver) {
       throw new Error('Destinatário não encontrado');
     }
-    if (
-      createTransactionDto.type === TransactionType.TRANSFER &&
-      sender.balance < createTransactionDto.amount
-    ) {
-      throw new Error('Saldo insuficiente');
-    }
-    if (createTransactionDto.type === TransactionType.TRANSFER) {
+
+    if (type === TransactionType.TRANSFER) {
       return this.transactionRepository.createTransferTransaction({
         ...createTransactionDto,
       });

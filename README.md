@@ -1,7 +1,5 @@
 ### Mark Bank Backend
 
-- Descrição do desafio no arquivo `mark-bank.txt`
-
 ## Como rodar o projeto
 
 1. Clone o repositório
@@ -11,7 +9,7 @@
 ```env
 {
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/bankdb"
-JWT_SECRET='mark-bank'
+JWT_SECRET='markbank'
 JWT_EXPIRES_IN='8h'
 }
 ```

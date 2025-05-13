@@ -24,9 +24,6 @@ export class CreateTransactionDto {
   @IsBoolean()
   reversed: boolean;
 
-  @IsDate()
-  createdAt: Date;
-
   @IsString()
   userId: string;
 }

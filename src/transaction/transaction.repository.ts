@@ -12,7 +12,6 @@ export class TransactionRepository {
     senderId,
     receiverId,
     reversed,
-    createdAt,
     userId,
   }: CreateTransactionDto) {
     const transaction = await this.prisma.$transaction([
@@ -23,7 +22,7 @@ export class TransactionRepository {
           senderId,
           receiverId,
           reversed,
-          createdAt,
+          createdAt: new Date(),
           userId,
         },
       }),
@@ -53,7 +52,6 @@ export class TransactionRepository {
     senderId,
     receiverId,
     reversed,
-    createdAt,
     userId,
   }: CreateTransactionDto) {
     const transaction = await this.prisma.$transaction([
@@ -64,7 +62,7 @@ export class TransactionRepository {
           senderId,
           receiverId,
           reversed,
-          createdAt,
+          createdAt: new Date(),
           userId,
         },
       }),
