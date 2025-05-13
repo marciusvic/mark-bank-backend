@@ -38,14 +38,29 @@ export class AuthService {
     return result;
   }
 
-  login(user: User) {
-    const payload = { username: user.name, sub: user.id };
+  async login(user: User) {
+    const fullUser = await this.usersService.findOne(
+      { id: user.id },
+      {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        balance: true,
+        password: false,
+      },
+    );
+  
+    if (!fullUser) {
+      throw new Error('Usuário não encontrado');
+    }
+  
+    const payload = { username: fullUser.name, sub: fullUser.id };
     return {
       access_token: this.jwtService.sign(payload),
-      user,
+      user: fullUser,
     };
   }
-
   async register(data: { email: string; password: string; name?: string }) {
     const userWithEmail = await this.usersService.findOne({
       email: data.email,
