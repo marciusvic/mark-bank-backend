@@ -37,6 +37,13 @@ export class TransactionController {
     return this.transactionService.findOne(id, user.id);
   }
 
+  @Get('allTransactions')
+  @UseGuards(RolesGuard)
+  @Roles(Role.ADMIN)
+  findAllTransactions() {
+    return this.transactionService.findAll();
+  }
+
   @Patch(':id')
   @UseGuards(RolesGuard)
   @Roles(Role.ADMIN)
